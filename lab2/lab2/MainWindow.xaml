@@ -1,0 +1,34 @@
+﻿<Window x:Class="lab2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Left" Width="120">
+            <TextBox x:Name="inputPointsAmount" Margin="0,20" Width="100">
+
+            </TextBox>
+
+            <Button Content="Show dots" Width="100" x:Name="btnShowDots" Margin="0,0,0,20" Click="btnShowDots_Click"/>
+            <Button Content="Next claster" Width="100" x:Name="btnShowNextClast" Click="btnShowNextClast_Click" />
+
+        </StackPanel>
+        <UniformGrid x:Name="ugridForClasters" Margin="120,0,0,0" Background="AliceBlue">
+            <Canvas Margin="0,0,0,-120" Background="White">
+                <Canvas Width="310" Height="310" x:Name="cnvOriginal" Canvas.Left="10" Canvas.Top="10"/>
+
+            </Canvas>
+            <Canvas Margin="0,0,0,-120" Background="White">
+                <Canvas Width="310" Height="310" x:Name="cnvSecondClaster" Canvas.Left="10" Canvas.Top="10"/>
+            </Canvas>
+
+            <TextBlock x:Name="txtClastAmount" Margin="0,125,-330,0" TextAlignment="Center" FontSize="40" HorizontalAlignment="Right" Width="670">
+                Количество кластеров: 0
+            </TextBlock>
+        </UniformGrid>
+
+    </Grid>
+</Window>
