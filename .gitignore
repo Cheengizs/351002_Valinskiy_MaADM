@@ -1,0 +1,20 @@
+# Игнорировать артефакты сборки
+bin/
+obj/
+*.dll
+*.pdb
+*.cache
+*.suo
+*.user
+*.nupkg
+
+# Игнорировать служебные файлы Visual Studio
+.vs/
+.vscode/
+*.sln.iml
+
+# Игнорировать пользовательские настройки
+*.userprefs
+
+# Игнорировать папки пакетов NuGet
+packages/
