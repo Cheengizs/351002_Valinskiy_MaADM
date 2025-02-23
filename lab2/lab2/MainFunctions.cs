@@ -66,9 +66,31 @@ namespace lab2
             for (int i = 0; i < dotsAmount; i++)
             {
                 Ellipse el = new Ellipse();
-                el.Width = 1;
-                el.Height = 1;
-                el.Fill = new SolidColorBrush(colors[arrOfDots[i].ClastNumb]);
+
+                bool isCenter = false;
+                if (headDots is not null)
+                    for (int j = 0; j < headDots.Count(); j++)
+                    {
+                        if (arrOfDots[i].Xcoord == headDots[j].Xcoord && arrOfDots[i].Ycoord == headDots[j].Ycoord)
+                        {
+                            isCenter = true;
+                            break;
+                        }
+                    }
+
+
+                if (isCenter)
+                {
+                    el.Width = 4;
+                    el.Height = 4;
+                    el.Fill = new SolidColorBrush(Colors.Gray);
+                }
+                else
+                {
+                    el.Width = 1;
+                    el.Height = 1;
+                    el.Fill = new SolidColorBrush(colors[arrOfDots[i].ClastNumb]);
+                }
                 Canvas.SetLeft(el, arrOfDots[i].Xcoord);
                 Canvas.SetTop(el, arrOfDots[i].Ycoord);
 
@@ -196,7 +218,7 @@ namespace lab2
                 }
                 return true;
             }
-            return false; 
+            return false;
 
         }
     }

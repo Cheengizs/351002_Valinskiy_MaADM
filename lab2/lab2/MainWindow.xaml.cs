@@ -24,11 +24,12 @@ namespace lab2
 
         public int action = 0;
         public int clast = 0;
-
+        public bool isFinish = false;   
         private void btnShowDots_Click(object sender, RoutedEventArgs e)
         {
             action = 0;
             clast = 0;
+            MainFunctions.headDots = null;
             MainFunctions.arrOfDotsSt = null;
             MainFunctions.DotsAmount = Convert.ToInt32(inputPointsAmount.Text);
             MainFunctions.initArrayOfDots(ref MainFunctions.arrOfDotsSt, MainFunctions.DotsAmount);
@@ -40,6 +41,7 @@ namespace lab2
         {
             if (action == 0)
             {
+                isFinish = false;
                 MainFunctions.firstClass(MainFunctions.arrOfDotsSt, MainFunctions.DotsAmount);
                 action++;
                 clast++;
@@ -50,7 +52,12 @@ namespace lab2
                 action++;
             } else
             {
+                if (!isFinish)
+                {
                 if (MainFunctions.elseClass(MainFunctions.arrOfDotsSt, MainFunctions.DotsAmount)) clast++;
+                else isFinish = true;
+
+                }
 
             }
             
