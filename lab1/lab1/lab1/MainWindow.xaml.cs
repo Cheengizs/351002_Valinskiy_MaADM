@@ -139,6 +139,19 @@ namespace lab1
                 Canvas.SetLeft(el, arrOfDots[i].X);
                 Canvas.SetTop(el, arrOfDots[i].Y);
             }
+            
+            for (int i = 0; i < clastAmount; i++)
+            {
+                Ellipse el = new Ellipse();
+                el.Width = 5;
+                el.Height = 5;
+                el.Fill = new SolidColorBrush(Colors.Gray);
+                cnv.Children.Add(el);
+                Canvas.SetLeft(el, HeadClast[i].X);
+                Canvas.SetTop(el, HeadClast[i].Y);
+            }
+
+
         }
 
         public struct DotOnClaster

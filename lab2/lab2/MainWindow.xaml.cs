@@ -24,7 +24,7 @@ namespace lab2
 
         public int action = 0;
         public int clast = 0;
-        public bool isFinish = false;   
+        public bool isFinish = false;
         private void btnShowDots_Click(object sender, RoutedEventArgs e)
         {
             action = 0;
@@ -45,25 +45,37 @@ namespace lab2
                 MainFunctions.firstClass(MainFunctions.arrOfDotsSt, MainFunctions.DotsAmount);
                 action++;
                 clast++;
-            } else if (action == 1)
+            }
+            else if (action == 1)
             {
                 MainFunctions.secondClass(MainFunctions.arrOfDotsSt, MainFunctions.DotsAmount);
                 clast++;
                 action++;
-            } else
+            }
+            else
             {
                 if (!isFinish)
                 {
-                if (MainFunctions.elseClass(MainFunctions.arrOfDotsSt, MainFunctions.DotsAmount)) clast++;
-                else isFinish = true;
+                    if (MainFunctions.elseClass(MainFunctions.arrOfDotsSt, MainFunctions.DotsAmount)) clast++;
+                    else isFinish = true;
 
                 }
 
             }
-            
+
 
             MainFunctions.printDots(cnvSecondClaster, MainFunctions.arrOfDotsSt, MainFunctions.DotsAmount);
             txtClastAmount.Text = $"Количество кластеров: {clast}";
+        }
+
+        private void btnK_Means_Click(object sender, RoutedEventArgs e)
+        {
+            cnvSecondClaster.Children.Clear();
+            int pointsAmount = Convert.ToInt32(inputPointsAmount.Text);
+            int clastersAmount = Convert.ToInt32(clast);
+            MainFunctions.changeSecondClaster(cnvSecondClaster, MainFunctions.arrOfDotsSt, pointsAmount, clastersAmount);
+
+
         }
     }
 }

@@ -8,13 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <StackPanel HorizontalAlignment="Left" Width="120">
-            <TextBox x:Name="inputPointsAmount" Margin="0,20" Width="100">
-
-            </TextBox>
-
+            <TextBox x:Name="inputPointsAmount" Margin="0,20" Width="100"/>
             <Button Content="Show dots" Width="100" x:Name="btnShowDots" Margin="0,0,0,20" Click="btnShowDots_Click"/>
             <Button Content="Next claster" Width="100" x:Name="btnShowNextClast" Click="btnShowNextClast_Click" />
-
+            <Button x:Name="btnK_Means" Content="k-means" Margin="10 20" Click="btnK_Means_Click"/> 
         </StackPanel>
         <UniformGrid x:Name="ugridForClasters" Margin="120,0,0,0" Background="AliceBlue">
             <Canvas Margin="0,0,0,-120" Background="White">

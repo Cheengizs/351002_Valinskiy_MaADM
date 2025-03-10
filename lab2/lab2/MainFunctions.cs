@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -9,7 +10,7 @@ using System.Windows.Shapes;
 
 namespace lab2
 {
-    struct DotOnClaster
+    public class DotOnClaster
     {
         public int Ycoord { get; set; }
         public int Xcoord { get; set; }
@@ -17,6 +18,8 @@ namespace lab2
         public DotOnClaster()
         {
             ClastNumb = 0;
+            Ycoord = 0;
+            Xcoord = 0;
         }
     }
 
@@ -44,20 +47,21 @@ namespace lab2
 
         public static int DotsAmount { get; set; }
         public static DotOnClaster[]? arrOfDotsSt;
-        public static List<DotOnClaster>? headDots;
-        public static List<DotOnClaster>? bufHeadDots;
+        public static List<DotOnClaster> headDots;
+        public static List<DotOnClaster> bufHeadDots;
 
         public static void initArrayOfDots(ref DotOnClaster[] arrOfDots, int dotsAmount)
         {
             Random rnd = new Random();
             arrOfDots = new DotOnClaster[dotsAmount];
+
             for (int i = 0; i < dotsAmount; i++)
             {
+                arrOfDots[i] = new DotOnClaster();
                 arrOfDots[i].Xcoord = rnd.Next(1, 310);
                 arrOfDots[i].Ycoord = rnd.Next(1, 310);
                 arrOfDots[i].ClastNumb = 0;
             }
-
         }
 
         public static void printDots(Canvas cnv, DotOnClaster[] arrOfDots, int dotsAmount)
@@ -219,6 +223,78 @@ namespace lab2
                 return true;
             }
             return false;
+
+        }
+
+        public static void changeSecondClaster(Canvas cnv, DotOnClaster[] arrOfDots, int pointsAmount, int clastAmount)
+        {
+
+            // Перебором отношу точку к какому-то кластеру
+            for (int i = 0; i < pointsAmount; i++)
+            {
+                double minDist = int.MaxValue;
+                double tempClast = 0;
+
+                for (int j = 0; j < clastAmount; j++)
+                {
+                    double dist = Math.Sqrt(Math.Pow(arrOfDots[i].Xcoord - headDots[j].Xcoord, 2)
+                        + Math.Pow(arrOfDots[i].Ycoord - headDots[j].Ycoord, 2));
+                    if (minDist > dist)
+                    {
+                        minDist = dist;
+                        tempClast = j + 1;
+                    }
+                }
+                arrOfDots[i].ClastNumb = Convert.ToInt32(tempClast);
+            }
+
+            //Определяю новые центроиды
+            for (int i = 0; i < clastAmount; i++)
+            {
+                int xAvrg = 0, yAvrg = 0, dotAmount = 0;
+
+                for (int j = 0; j < pointsAmount; j++)
+                {
+                    if (arrOfDots[j].ClastNumb == i + 1)
+                    {
+                        dotAmount++;
+                        xAvrg += arrOfDots[j].Xcoord;
+                        yAvrg += arrOfDots[j].Ycoord;
+                    }
+                }
+                headDots[i].Xcoord = Convert.ToInt32(xAvrg / dotAmount);
+                headDots[i].Ycoord = Convert.ToInt32(yAvrg / dotAmount);
+            }
+
+            
+            //for (int i = 0; i < clastAmount; i++)
+            //{
+            //    bufHeadDots[i] = new DotOnClaster();
+            //    bufHeadDots[i].Xcoord = headDots[i].Xcoord;
+            //    bufHeadDots[i].Ycoord = headDots[i].Ycoord;
+            //}
+            for (int i = 0; i < pointsAmount; i++)
+            {
+                int clast = Convert.ToByte(arrOfDots[i].ClastNumb);
+                Ellipse el = new Ellipse();
+                el.Width = 1;
+                el.Height = 1;
+                el.Fill = new SolidColorBrush(colors[clast - 1]);
+                cnv.Children.Add(el);
+                Canvas.SetLeft(el, arrOfDots[i].Xcoord);
+                Canvas.SetTop(el, arrOfDots[i].Ycoord);
+            }
+
+            for (int i = 0; i < clastAmount; i++)
+            {
+                Ellipse el = new Ellipse();
+                el.Width = 5;
+                el.Height = 5;
+                el.Fill = new SolidColorBrush(Colors.Gray);
+                cnv.Children.Add(el);
+                Canvas.SetLeft(el, headDots[i].Xcoord);
+                Canvas.SetTop(el, headDots[i].Ycoord);
+            }
 
         }
     }
