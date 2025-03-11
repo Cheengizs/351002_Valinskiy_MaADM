@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:lab3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="260"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
@@ -18,7 +19,7 @@
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">P(X1)</TextBlock>
                     <Slider Minimum="0" Maximum="1" x:Name="sldrPropOne" Value="0.5"/>
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
-               Text="{Binding ElementName=sldrPropOne,Path=Value}"/>
+                    Text="{Binding ElementName=sldrPropOne,Path=Value}"/>
                 </StackPanel>
             </Border>
             <Border Margin="10" CornerRadius="5" BorderThickness="2" BorderBrush="GreenYellow">
@@ -28,7 +29,7 @@
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding ElementName=sldrPropTwo,Path=Value}"/>
                 </StackPanel>
             </Border>
-            
+
             <Border Margin="10" BorderThickness="2" CornerRadius="5" BorderBrush="GreenYellow">
                 <StackPanel >
                     <TextBlock HorizontalAlignment="Center" FontSize="20">Результаты</TextBlock>
@@ -46,8 +47,25 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-            
+            <Border CornerRadius="5" BorderBrush="GreenYellow" Margin="10" BorderThickness="2">
+                <StackPanel>
+                    <TextBlock Text="Условные обозначения" FontSize="14" FontWeight="Bold" TextAlignment="Center"/>
+                    <StackPanel>
+                        <Line Stroke="Blue" Margin="10" StrokeThickness="2" 
+                              X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=StackPanel}}"/>
+                        <TextBlock Text="p(X / C1) P(C1)" TextAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Line Stroke="Red" Margin="10" StrokeThickness="2" 
+                            X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=StackPanel}}"/>
+                        <TextBlock Text="p(X / C2) P(C2)" TextAlignment="Center" Margin="0 0 0 10"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
         </StackPanel>
-        
+        <Border x:Name="bordForGraph" Grid.Column="1" BorderBrush="DarkCyan" CornerRadius="5" BorderThickness="5">
+            <oxy:PlotView Model="{Binding MyModel}" x:Name="myGrafik" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        </Border>
+
     </Grid>
 </Window>
